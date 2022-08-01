@@ -1,4 +1,6 @@
 import React from "react";
+// import Results from "./Results";
+// import Randomizer from "./Randomizer";
 
 const Game = (props) => {
   const [questions, setQuestions] = React.useState([
@@ -55,40 +57,51 @@ const Game = (props) => {
   }
 
   //for each question, shuffle the answer array
-  questions.forEach(element => {
-    shuffle(element.answers)
+  questions.forEach((element) => {
+    shuffle(element.answers);
   });
 
+  //changes selected button's color light blue before submitting
+  function handleClick(e) {
+    // console.log(e.target);
+    let currentQId = e.target.getAttribute("data-qid");
+    // get all siblings of currently clicked button
+    let buttonList = document.querySelectorAll(
+      `button[data-qid="${currentQId}"]`
+    );
+    //console.log(buttonList);
+    //console.log(`button[data-qid="${currentQId}"]`);
+
+    buttonList.forEach((element) => {
+      element.style.backgroundColor = "#FFFFFF";
+    });
+
+    let selectedBtn = document.getElementById(e.target.id);
+    selectedBtn.style.backgroundColor = "#D6DBF5";
+  }
+
   return (
-    <div>
-      <div className="questions-container">
-        {questions.map((question) => (
-          <div key={question.id}>
-            <h1 className="question">{question.question}</h1>
-            {/* for each question, make a button for each answer in its answer array */}
-            <div className="answers-container">
-              {question.answers.map((answer) => (
-                <button key={answer.id} className="answer-button">
-                  {answer.text}
-                </button>
-              ))}
-              {/* <button className="answer-button">
-                {question.answers[0].text}
+    <div className="questions-container">
+      {questions.map((question) => (
+        <div key={question.id}>
+          <h3 className="question">{question.question}</h3>
+          {/* for each question, make a button for each answer in its answer array */}
+          <div className="answers-container">
+            {question.answers.map((answer) => (
+              <button
+                key={answer.id}
+                id={"btn" + question.id + answer.id}
+                data-qid={question.id}
+                className="answer-button"
+                onClick={(e) => handleClick(e)}
+              >
+                {answer.text}
               </button>
-              <button className="answer-button">
-                {question.answers[1].text}
-              </button>
-              <button className="answer-button">
-                {question.answers[2].text}
-              </button>
-              <button className="answer-button">
-                {question.answers[3].text}
-              </button> */}
-            </div>
-            <hr className="cardLine" />
+            ))}
           </div>
-        ))}
-      </div>
+          <hr className="cardLine" />
+        </div>
+      ))}
       {props.gameInProgress ? (
         <button className="check-answers" onClick={props.calculateScore}>
           Check answers
