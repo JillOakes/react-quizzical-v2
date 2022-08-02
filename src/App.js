@@ -2,9 +2,6 @@ import React from "react";
 import blob from "./blob.svg";
 import Intro from "./components/Intro";
 import Game from "./components/Game";
-// import Results from "./components/Results";
-// import Randomizer from "./components/Randomizer";
-import Notes from "./components/Notes";
 
 function App() {
   const [showIntro, setShowIntro] = React.useState(true);
@@ -14,14 +11,12 @@ function App() {
 
   React.useEffect(() => {
     fetch(
-      //`https://swapi.dev/api/people/1`
       "https://opentdb.com/api.php?amount=5&category=14&difficulty=easy&type=multiple"
-      // "https://opentdb.com/api.php?amount=1&category=14&difficulty=easy&type=multiple"
+      //`https://swapi.dev/api/people/1`
     )
       .then((res) => res.json())
       .then((data) => {
         setRawQuestions(data.results);
-        // console.log("data fetched", data.results);
       });
   }, []);
 
@@ -46,10 +41,9 @@ function App() {
   return (
     <div className="App">
       <main>
-        <Notes rawQuestions={rawQuestions}/>
         <img src={blob} alt="blob" className="upper-right-blob" />
         <img src={blob} alt="blob" className="lower-left-blob" />
-        {/* {showIntro ? (
+        {showIntro ? (
           <Intro startGame={startGame} />
         ) : (
           <Game
@@ -61,7 +55,7 @@ function App() {
             setScore={setScore}
             endGame={endGame}
           />
-        )} */}
+        )}
       </main>
     </div>
   );
