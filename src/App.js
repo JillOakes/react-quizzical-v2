@@ -16,9 +16,11 @@ function App() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setRawQuestions(data.results);
+        setRawQuestions(data.results)
+        console.log("data fetched from api");
       });
-  }, []);
+  }, [showIntro]);
+
 
   function startGame() {
     setShowIntro(false);
@@ -34,7 +36,7 @@ function App() {
 
   function endGame() {
     setShowIntro(true);
-    setGameInProgress(false);
+    // setGameInProgress(false);
     console.log("resetting the game, sending you to Intro page");
   }
 

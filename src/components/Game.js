@@ -61,7 +61,7 @@ if (apiQs.length > 0) {
   gameArray.forEach((element) => {
     shuffle(element.answers);
   });
-  console.log("game array:", gameArray);
+//   console.log("game array:", gameArray);
 }
 
   //changes selected button's color light blue before submitting
