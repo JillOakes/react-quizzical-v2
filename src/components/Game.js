@@ -3,38 +3,39 @@ import React from "react";
 // import Randomizer from "./Randomizer";
 
 const Game = (props) => {
-  const [questions, setQuestions] = React.useState([
-    {
-      id: 0,
-      question: "This is question 1",
-      answers: [
-        { id: 5, text: "answer1.1", isCorrect: true },
-        { id: 6, text: "answer1.2", isCorrect: false },
-        { id: 7, text: "answer1.3", isCorrect: false },
-        { id: 8, text: "answer1.4", isCorrect: false },
-      ],
-    },
-    {
-      id: 1,
-      question: "This is question 2",
-      answers: [
-        { id: 5, text: "answer2.1", isCorrect: true },
-        { id: 6, text: "answer2.2", isCorrect: false },
-        { id: 7, text: "answer2.3", isCorrect: false },
-        { id: 8, text: "answer2.4", isCorrect: false },
-      ],
-    },
-    {
-      id: 2,
-      question: "This is question 3",
-      answers: [
-        { id: 5, text: "answer3.1", isCorrect: true },
-        { id: 6, text: "answer3.2", isCorrect: false },
-        { id: 7, text: "answer3.3", isCorrect: false },
-        { id: 8, text: "answer3.4", isCorrect: false },
-      ],
-    },
-  ]);
+    const [questions, setQuestions] = React.useState([
+      {
+        id: 0,
+        question: "This is question 1",
+        answers: [
+          { id: 5, text: "answer1.1", isCorrect: true },
+          { id: 6, text: "answer1.2", isCorrect: false },
+          { id: 7, text: "answer1.3", isCorrect: false },
+          { id: 8, text: "answer1.4", isCorrect: false },
+        ],
+      },
+      {
+        id: 1,
+        question: "This is question 2",
+        answers: [
+          { id: 5, text: "answer2.1", isCorrect: true },
+          { id: 6, text: "answer2.2", isCorrect: false },
+          { id: 7, text: "answer2.3", isCorrect: false },
+          { id: 8, text: "answer2.4", isCorrect: false },
+        ],
+      },
+      {
+        id: 2,
+        question: "This is question 3",
+        answers: [
+          { id: 5, text: "answer3.1", isCorrect: true },
+          { id: 6, text: "answer3.2", isCorrect: false },
+          { id: 7, text: "answer3.3", isCorrect: false },
+          { id: 8, text: "answer3.4", isCorrect: false },
+        ],
+      },
+    ]);
+
 
   function shuffle(array) {
     let currentIndex = array.length,
