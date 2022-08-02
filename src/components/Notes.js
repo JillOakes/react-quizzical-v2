@@ -1,46 +1,75 @@
 import React from "react";
 
 const Notes = (props) => {
-  console.log("raw questions: ", props.rawQuestions);
+  //   console.log("raw questions: ", props.rawQuestions);
   const apiQs = props.rawQuestions;
-  console.log("current questions: ", apiQs);
+  //   console.log("current questions: ", apiQs);
 
-  //   class Answer {
-  //     constructor(id, question, answers) {
-  //       this.id = "id";
-  //       this.question = "question";
-  //       this.answers = [
-  //         { id: 5, text: "answer1.1", isCorrect: true },
-  //         { id: 6, text: "answer1.2", isCorrect: false },
-  //         { id: 7, text: "answer1.3", isCorrect: false },
-  //         { id: 8, text: "answer1.4", isCorrect: false },
-  //       ];
-  //     }
-  //   }
+  // For handling the default encoding of character text from the API
+  function htmlDecode(input) {
+    var doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent;
+  }
 
-  const fooArray = [];
+  //For shuffling the answers around to be random
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle
+    while (currentIndex !== 0) {
+      // Pick a remaining element
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
+  const gameArray = [];
   if (apiQs.length > 0) {
-    console.log("apiQs: ", apiQs);
-    // now do this for all five objects in apiQs
+    // console.log("apiQs: ", apiQs);
     for (let i = 0; i < apiQs.length; i++) {
       const foo = {
         id: i,
-        question: apiQs[i].question,
+        question: htmlDecode(apiQs[i].question),
         answers: [
-          { id: 5, text: apiQs[i].correct_answer, isCorrect: true },
-          { id: 6, text: apiQs[i].incorrect_answers[0], isCorrect: false },
-          { id: 7, text: apiQs[i].incorrect_answers[1], isCorrect: false },
-          { id: 8, text: apiQs[i].incorrect_answers[2], isCorrect: false },
+          { id: 5, text: htmlDecode(apiQs[i].correct_answer), isCorrect: true },
+          {
+            id: 6,
+            text: htmlDecode(apiQs[i].incorrect_answers[0]),
+            isCorrect: false,
+          },
+          {
+            id: 7,
+            text: htmlDecode(apiQs[i].incorrect_answers[1]),
+            isCorrect: false,
+          },
+          {
+            id: 8,
+            text: htmlDecode(apiQs[i].incorrect_answers[2]),
+            isCorrect: false,
+          },
         ],
       };
-      fooArray.push(foo);
+      gameArray.push(foo);
     }
-    console.log("foo array:", fooArray);
+    //for each question, shuffle the answer array
+    gameArray.forEach((element) => {
+      shuffle(element.answers);
+    });
+    console.log("game array:", gameArray);
   }
 
   return (
     <div className="questions-container">
-      {fooArray.map((question) => (
+      {gameArray.map((question) => (
         <div key={question.id}>
           <h3 className="question">{question.question}</h3>
           {/* for each question, make a button for each answer in its answer array */}

@@ -21,7 +21,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setRawQuestions(data.results);
-        console.log("data fetched", data.results);
+        // console.log("data fetched", data.results);
       });
   }, []);
 
