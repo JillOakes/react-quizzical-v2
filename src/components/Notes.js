@@ -5,36 +5,38 @@ const Notes = (props) => {
   const apiQs = props.rawQuestions;
   console.log("current questions: ", apiQs);
 
-//   class Answer {
-//     constructor(id, question, answers) {
-//       this.id = "id";
-//       this.question = "question";
-//       this.answers = [
-//         { id: 5, text: "answer1.1", isCorrect: true },
-//         { id: 6, text: "answer1.2", isCorrect: false },
-//         { id: 7, text: "answer1.3", isCorrect: false },
-//         { id: 8, text: "answer1.4", isCorrect: false },
-//       ];
-//     }
-//   }
+  //   class Answer {
+  //     constructor(id, question, answers) {
+  //       this.id = "id";
+  //       this.question = "question";
+  //       this.answers = [
+  //         { id: 5, text: "answer1.1", isCorrect: true },
+  //         { id: 6, text: "answer1.2", isCorrect: false },
+  //         { id: 7, text: "answer1.3", isCorrect: false },
+  //         { id: 8, text: "answer1.4", isCorrect: false },
+  //       ];
+  //     }
+  //   }
 
-  const fooArray = []
+  const fooArray = [];
   if (apiQs.length > 0) {
     console.log("apiQs: ", apiQs);
-    const foo = {
-      id: 0,
-      question: apiQs[0].question,
-      answers: [
-        { id: 5, text: apiQs[0].correct_answer, isCorrect: true },
-        { id: 6, text: apiQs[0].incorrect_answers[0], isCorrect: false },
-        { id: 7, text: apiQs[0].incorrect_answers[1], isCorrect: false },
-        { id: 8, text: apiQs[0].incorrect_answers[2], isCorrect: false },
-      ],
-    };
-    fooArray.push(foo);
-    console.log("foo array:", foo);
+    // now do this for all five objects in apiQs
+    for (let i = 0; i < apiQs.length; i++) {
+      const foo = {
+        id: i,
+        question: apiQs[i].question,
+        answers: [
+          { id: 5, text: apiQs[i].correct_answer, isCorrect: true },
+          { id: 6, text: apiQs[i].incorrect_answers[0], isCorrect: false },
+          { id: 7, text: apiQs[i].incorrect_answers[1], isCorrect: false },
+          { id: 8, text: apiQs[i].incorrect_answers[2], isCorrect: false },
+        ],
+      };
+      fooArray.push(foo);
+    }
+    console.log("foo array:", fooArray);
   }
-
 
   return (
     <div className="questions-container">
