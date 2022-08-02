@@ -5,7 +5,7 @@ import Game from "./components/Game";
 
 function App() {
   const [showIntro, setShowIntro] = React.useState(true);
-  const [gameInProgress, setGameInProgress] = React.useState(false);
+  // const [gameInProgress, setGameInProgress] = React.useState(false);
   const [score, setScore] = React.useState(0);
   const [rawQuestions, setRawQuestions] = React.useState([]);
 
@@ -24,15 +24,16 @@ function App() {
 
   function startGame() {
     setShowIntro(false);
-    setGameInProgress(true);
-    console.log("the game is now in progress");
+    // setGameInProgress(true);
+    // console.log("game in progress");
   }
 
-  function calculateScore() {
-    setGameInProgress(false);
-    console.log("game is over. calculating your score");
-    //if question component is true, setScore(prevScore => prevScore + 1)
-  }
+  // function calculateScore() {
+  //   setGameInProgress(false);
+  //   console.log("game NOT in progress. calculating your score");
+  //   //for each question's answer array, if id of true answer is blue, setScore(prevScore => prevScore + 1)
+  //   // THEN change id of true answer to green if true or red if false
+  // }
 
   function endGame() {
     setShowIntro(true);
@@ -51,8 +52,8 @@ function App() {
           <Game
             rawQuestions={rawQuestions}
             startGame={startGame}
-            gameInProgress={gameInProgress}
-            calculateScore={calculateScore}
+            // gameInProgress={gameInProgress}
+            // calculateScore={calculateScore}
             score={score}
             setScore={setScore}
             endGame={endGame}

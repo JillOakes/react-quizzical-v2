@@ -1,68 +1,79 @@
 import React from "react";
 
 const Game = (props) => {
-const apiQs = props.rawQuestions;
+  const [gameInProgress, setGameInProgress] = React.useState(true);
+//   setGameInProgress(true);
+//   console.log("game in progress");
 
-// For handling the default encoding of character text from the API
-function htmlDecode(input) {
-  var doc = new DOMParser().parseFromString(input, "text/html");
-  return doc.documentElement.textContent;
-}
-
-//For shuffling the answers around to be random
-function shuffle(array) {
-  let currentIndex = array.length,
-    randomIndex;
-
-  // While there remain elements to shuffle
-  while (currentIndex !== 0) {
-    // Pick a remaining element
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
+  function calculateScore() {
+    setGameInProgress(false);
+    console.log("game NOT in progress. calculating your score");
+    //for each question's answer array, if id of true answer is blue, props.setScore(prevScore => prevScore + 1)
+    // THEN change id of true answer to green if true or red if false
   }
 
-  return array;
-}
+  const apiQs = props.rawQuestions;
 
-const gameArray = [];
-if (apiQs.length > 0) {
-  for (let i = 0; i < apiQs.length; i++) {
-    const foo = {
-      id: i,
-      question: htmlDecode(apiQs[i].question),
-      answers: [
-        { id: 5, text: htmlDecode(apiQs[i].correct_answer), isCorrect: true },
-        {
-          id: 6,
-          text: htmlDecode(apiQs[i].incorrect_answers[0]),
-          isCorrect: false,
-        },
-        {
-          id: 7,
-          text: htmlDecode(apiQs[i].incorrect_answers[1]),
-          isCorrect: false,
-        },
-        {
-          id: 8,
-          text: htmlDecode(apiQs[i].incorrect_answers[2]),
-          isCorrect: false,
-        },
-      ],
-    };
-    gameArray.push(foo);
+  // For handling the default encoding of character text from the API
+  function htmlDecode(input) {
+    var doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent;
   }
-  //for each question, shuffle the answer array
-  gameArray.forEach((element) => {
-    shuffle(element.answers);
-  });
-//   console.log("game array:", gameArray);
-}
+
+  //For shuffling the answers around to be random
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle
+    while (currentIndex !== 0) {
+      // Pick a remaining element
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
+  const gameArray = [];
+  if (apiQs.length > 0) {
+    for (let i = 0; i < apiQs.length; i++) {
+      const foo = {
+        id: i,
+        question: htmlDecode(apiQs[i].question),
+        answers: [
+          { id: 5, text: htmlDecode(apiQs[i].correct_answer), isCorrect: true },
+          {
+            id: 6,
+            text: htmlDecode(apiQs[i].incorrect_answers[0]),
+            isCorrect: false,
+          },
+          {
+            id: 7,
+            text: htmlDecode(apiQs[i].incorrect_answers[1]),
+            isCorrect: false,
+          },
+          {
+            id: 8,
+            text: htmlDecode(apiQs[i].incorrect_answers[2]),
+            isCorrect: false,
+          },
+        ],
+      };
+      gameArray.push(foo);
+    }
+    //for each question, shuffle the answer array
+    gameArray.forEach((element) => {
+      shuffle(element.answers);
+    });
+    //   console.log("game array:", gameArray);
+  }
 
   //changes selected button's color light blue before submitting
   function handleClick(e) {
@@ -102,21 +113,21 @@ if (apiQs.length > 0) {
           <hr className="cardLine" />
         </div>
       ))}
-       {props.gameInProgress ? (
-        <button className="check-answers" onClick={props.calculateScore}>
-           Check answers
-         </button>
-       ) : (
-         <div className="score">
-           <h1 className="correct-answers">
-             You scored {props.score}/5 correct answers.
-           </h1>
-           <button className="play-again" onClick={props.endGame}>
-             Play again
-           </button>
-         </div>
-       )}
-     </div>
+      {gameInProgress ? (
+        <button className="check-answers" onClick={calculateScore}>
+          Check answers
+        </button>
+      ) : (
+        <div className="score">
+          <h1 className="correct-answers">
+            You scored {props.score}/5 correct answers.
+          </h1>
+          <button className="play-again" onClick={props.endGame}>
+            Play again
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 
