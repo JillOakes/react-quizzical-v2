@@ -5,8 +5,7 @@ import Game from "./components/Game";
 
 function App() {
   const [showIntro, setShowIntro] = React.useState(true);
-  // const [gameInProgress, setGameInProgress] = React.useState(false);
-  const [score, setScore] = React.useState(0);
+  const [gameInProgress, setGameInProgress] = React.useState(true);
   const [rawQuestions, setRawQuestions] = React.useState([]);
 
   React.useEffect(() => {
@@ -16,29 +15,77 @@ function App() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setRawQuestions(data.results)
+        setRawQuestions(data.results);
         console.log("data fetched from api");
       });
   }, [showIntro]);
 
+  const apiQs = rawQuestions;
+
+  // For handling the default encoding of character text from the API
+  function htmlDecode(input) {
+    var doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent;
+  }
+
+  //For shuffling the answers around to be random
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle
+    while (currentIndex !== 0) {
+      // Pick a remaining element
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
+  const gameArray = [];
+  if (apiQs.length > 0) {
+    for (let i = 0; i < apiQs.length; i++) {
+      const foo = {
+        id: i,
+        question: htmlDecode(apiQs[i].question),
+        answers: [
+          { id: 5, text: htmlDecode(apiQs[i].correct_answer), isCorrect: true },
+          {
+            id: 6,
+            text: htmlDecode(apiQs[i].incorrect_answers[0]),
+            isCorrect: false,
+          },
+          {
+            id: 7,
+            text: htmlDecode(apiQs[i].incorrect_answers[1]),
+            isCorrect: false,
+          },
+          {
+            id: 8,
+            text: htmlDecode(apiQs[i].incorrect_answers[2]),
+            isCorrect: false,
+          },
+        ],
+      };
+      gameArray.push(foo);
+    }
+    //for each question, shuffle the answer array
+    gameArray.forEach((element) => {
+      shuffle(element.answers);
+    });
+    //console.log("game array:", gameArray);
+  }
 
   function startGame() {
     setShowIntro(false);
     // setGameInProgress(true);
-    // console.log("game in progress");
-  }
-
-  // function calculateScore() {
-  //   setGameInProgress(false);
-  //   console.log("game NOT in progress. calculating your score");
-  //   //for each question's answer array, if id of true answer is blue, setScore(prevScore => prevScore + 1)
-  //   // THEN change id of true answer to green if true or red if false
-  // }
-
-  function endGame() {
-    setShowIntro(true);
-    // setGameInProgress(false);
-    console.log("resetting the game, sending you to Intro page");
   }
 
   return (
@@ -50,13 +97,16 @@ function App() {
           <Intro startGame={startGame} />
         ) : (
           <Game
-            rawQuestions={rawQuestions}
-            startGame={startGame}
-            // gameInProgress={gameInProgress}
+            // rawQuestions={rawQuestions}
+            // startGame={startGame}
+            setGameInProgress={setGameInProgress}
             // calculateScore={calculateScore}
-            score={score}
-            setScore={setScore}
-            endGame={endGame}
+            gameInProgress={gameInProgress}
+            // score={score}
+            // setScore={setScore}
+            // endGame={endGame}
+            gameArray={gameArray}
+            setShowIntro={setShowIntro}
           />
         )}
       </main>
