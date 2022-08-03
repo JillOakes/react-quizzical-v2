@@ -2,11 +2,12 @@ import React from "react";
 
 const Game = (props) => {
   const [score, setScore] = React.useState(0);
-  const [q0Answer, setQ0Answer] = React.useState();
-  const [q1Answer, setQ1Answer] = React.useState();
-  const [q2Answer, setQ2Answer] = React.useState();
-  const [q3Answer, setQ3Answer] = React.useState();
-  const [q4Answer, setQ4Answer] = React.useState();
+  const [gameInProgress, setGameInProgress] = React.useState(true);
+  const [selectedQ0BtnId, setSelectedQ0BtnId] = React.useState();
+  const [selectedQ1BtnId, setSelectedQ1BtnId] = React.useState();
+  const [selectedQ2BtnId, setSelectedQ2BtnId] = React.useState();
+  const [selectedQ3BtnId, setSelectedQ3BtnId] = React.useState();
+  const [selectedQ4BtnId, setSelectedQ4BtnId] = React.useState();
 
   //changes selected button's color light blue before submitting
   function handleClick(e) {
@@ -22,63 +23,123 @@ const Game = (props) => {
 
     let selectedBtn = document.getElementById(e.target.id);
     selectedBtn.style.backgroundColor = "#D6DBF5";
-    console.log(selectedBtn.id);
-    //console.log(typeof selectedBtn.id[3]);
-    if(selectedBtn.id[3] === "0"){
-      setQ0Answer(selectedBtn.id)
+    //console.log(selectedBtn.id);
+    if (selectedBtn.id[3] === "0") {
+      setSelectedQ0BtnId(selectedBtn.id);
     }
-    if(selectedBtn.id[3] === "1"){
-      setQ1Answer(selectedBtn.id)
+    if (selectedBtn.id[3] === "1") {
+      setSelectedQ1BtnId(selectedBtn.id);
     }
-    if(selectedBtn.id[3] === "2"){
-      setQ2Answer(selectedBtn.id)
+    if (selectedBtn.id[3] === "2") {
+      setSelectedQ2BtnId(selectedBtn.id);
     }
-    if(selectedBtn.id[3] === "3"){
-      setQ3Answer(selectedBtn.id)
+    if (selectedBtn.id[3] === "3") {
+      setSelectedQ3BtnId(selectedBtn.id);
     }
-    if(selectedBtn.id[3] === "4"){
-      setQ4Answer(selectedBtn.id)
+    if (selectedBtn.id[3] === "4") {
+      setSelectedQ4BtnId(selectedBtn.id);
     }
   }
 
   function calculateScore() {
-    props.setGameInProgress(false);
-    console.log("game NOT in progress. calculating your score");
-   
-    if (props.gameArray.length > 0) {
-      props.gameArray.forEach((question) => {
-        // console.log("here's a question");
-        for (let i = 0; i < question.answers.length; i++) {
-          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q0Answer)){
-            console.log("increment score")
-          }
-          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q1Answer)){
-            console.log("increment score")
-          }
-          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q2Answer)){
-            console.log("increment score")
-          }
-          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q3Answer)){
-            console.log("increment score")
-          }
-          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q4Answer)){
-            console.log("increment score")
-          }
-        }
-      });
-    }
+    setGameInProgress(false);
+    // console.log("game NOT in progress. calculating your score");
+
     // for each question in the array
     // for each answer in its array
     // if answer.isCorrect && backgroundColor blue, props.setScore(prevScore => prevScore + 1)
     // THEN
-    // if answer.isCorrect, set backgroundColor green
-    // else if !answer.isCorrect has backgroundColor blue, set backgroundColor red
+    // if answer.isCorrect, set backgroundColor to green #94D7A2
+    // else if !answer.isCorrect has backgroundColor blue, set backgroundColor to red #F8BCBC
+
+    if (props.gameArray.length > 0) {
+      let count = 0;
+      props.gameArray.forEach((question) => {
+        for (let i = 0; i < question.answers.length; i++) {
+          if (
+            question.answers[i].isCorrect &&
+            "btn" + question.id + question.answers[i].id === selectedQ0BtnId
+          ) {
+            count++;
+          }
+          if (
+            question.answers[i].isCorrect &&
+            "btn" + question.id + question.answers[i].id === selectedQ1BtnId
+          ) {
+            count++;
+          }
+          if (
+            question.answers[i].isCorrect &&
+            "btn" + question.id + question.answers[i].id === selectedQ2BtnId
+          ) {
+            count++;
+          }
+          if (
+            question.answers[i].isCorrect &&
+            "btn" + question.id + question.answers[i].id === selectedQ3BtnId
+          ) {
+            count++;
+          }
+          if (
+            question.answers[i].isCorrect &&
+            "btn" + question.id + question.answers[i].id === selectedQ4BtnId
+          ) {
+            count++;
+          }
+        }
+      });
+      setScore((prevScore) => prevScore + count);
+    }
+    props.gameArray.forEach((question) => {
+      for (let i = 0; i < question.answers.length; i++) {
+        if (question.answers[i].isCorrect) {
+          // console.log("this gets change to green", question.id + question.answers[i].id)
+          document.getElementById(
+            "btn" + question.id + question.answers[i].id
+          ).style.backgroundColor = "#94D7A2";
+        } else if (
+          !question.answers[i].isCorrect &&
+          "btn" + question.id + question.answers[i].id === selectedQ0BtnId
+        ) {
+          document.getElementById(
+            "btn" + question.id + question.answers[i].id
+          ).style.backgroundColor = "#F8BCBC";
+        } else if (
+          !question.answers[i].isCorrect &&
+          "btn" + question.id + question.answers[i].id === selectedQ1BtnId
+        ) {
+          document.getElementById(
+            "btn" + question.id + question.answers[i].id
+          ).style.backgroundColor = "#F8BCBC";
+        } else if (
+          !question.answers[i].isCorrect &&
+          "btn" + question.id + question.answers[i].id === selectedQ2BtnId
+        ) {
+          document.getElementById(
+            "btn" + question.id + question.answers[i].id
+          ).style.backgroundColor = "#F8BCBC";
+        } else if (
+          !question.answers[i].isCorrect &&
+          "btn" + question.id + question.answers[i].id === selectedQ3BtnId
+        ) {
+          document.getElementById(
+            "btn" + question.id + question.answers[i].id
+          ).style.backgroundColor = "#F8BCBC";
+        } else if (
+          !question.answers[i].isCorrect &&
+          "btn" + question.id + question.answers[i].id === selectedQ4BtnId
+        ) {
+          document.getElementById(
+            "btn" + question.id + question.answers[i].id
+          ).style.backgroundColor = "#F8BCBC";
+        }
+      }
+    });
   }
 
   function endGame() {
     props.setShowIntro(true);
-    props.setGameInProgress(true);
-    console.log("resetting the game, sending you to Intro page");
+    setGameInProgress(false);
   }
 
   return (
@@ -103,7 +164,7 @@ const Game = (props) => {
           <hr className="cardLine" />
         </div>
       ))}
-      {props.gameInProgress ? (
+      {gameInProgress ? (
         <button className="check-answers" onClick={calculateScore}>
           Check answers
         </button>

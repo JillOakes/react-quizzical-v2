@@ -5,13 +5,11 @@ import Game from "./components/Game";
 
 function App() {
   const [showIntro, setShowIntro] = React.useState(true);
-  const [gameInProgress, setGameInProgress] = React.useState(true);
   const [rawQuestions, setRawQuestions] = React.useState([]);
 
   React.useEffect(() => {
     fetch(
       "https://opentdb.com/api.php?amount=5&category=14&difficulty=easy&type=multiple"
-      //`https://swapi.dev/api/people/1`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -77,15 +75,13 @@ function App() {
       gameArray.push(foo);
     }
     //for each question, shuffle the answer array
-    // gameArray.forEach((element) => {
-    //   shuffle(element.answers);
-    // });
-    //console.log("game array:", gameArray);
+    gameArray.forEach((element) => {
+      shuffle(element.answers);
+    });
   }
 
   function startGame() {
     setShowIntro(false);
-    // setGameInProgress(true);
   }
 
   return (
@@ -97,14 +93,8 @@ function App() {
           <Intro startGame={startGame} />
         ) : (
           <Game
-            // rawQuestions={rawQuestions}
-            // startGame={startGame}
-            setGameInProgress={setGameInProgress}
-            // calculateScore={calculateScore}
-            gameInProgress={gameInProgress}
-            // score={score}
-            // setScore={setScore}
-            // endGame={endGame}
+            // setGameInProgress={setGameInProgress}
+            // gameInProgress={gameInProgress}
             gameArray={gameArray}
             setShowIntro={setShowIntro}
           />
