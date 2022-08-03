@@ -2,7 +2,11 @@ import React from "react";
 
 const Game = (props) => {
   const [score, setScore] = React.useState(0);
-
+  const [q0Answer, setQ0Answer] = React.useState();
+  const [q1Answer, setQ1Answer] = React.useState();
+  const [q2Answer, setQ2Answer] = React.useState();
+  const [q3Answer, setQ3Answer] = React.useState();
+  const [q4Answer, setQ4Answer] = React.useState();
 
   //changes selected button's color light blue before submitting
   function handleClick(e) {
@@ -18,13 +22,57 @@ const Game = (props) => {
 
     let selectedBtn = document.getElementById(e.target.id);
     selectedBtn.style.backgroundColor = "#D6DBF5";
+    console.log(selectedBtn.id);
+    //console.log(typeof selectedBtn.id[3]);
+    if(selectedBtn.id[3] === "0"){
+      setQ0Answer(selectedBtn.id)
+    }
+    if(selectedBtn.id[3] === "1"){
+      setQ1Answer(selectedBtn.id)
+    }
+    if(selectedBtn.id[3] === "2"){
+      setQ2Answer(selectedBtn.id)
+    }
+    if(selectedBtn.id[3] === "3"){
+      setQ3Answer(selectedBtn.id)
+    }
+    if(selectedBtn.id[3] === "4"){
+      setQ4Answer(selectedBtn.id)
+    }
   }
 
   function calculateScore() {
     props.setGameInProgress(false);
     console.log("game NOT in progress. calculating your score");
-    //for each question's answer array, if id of true answer is blue, props.setScore(prevScore => prevScore + 1)
-    // THEN change id of true answer to green if true or red if false
+   
+    if (props.gameArray.length > 0) {
+      props.gameArray.forEach((question) => {
+        // console.log("here's a question");
+        for (let i = 0; i < question.answers.length; i++) {
+          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q0Answer)){
+            console.log("increment score")
+          }
+          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q1Answer)){
+            console.log("increment score")
+          }
+          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q2Answer)){
+            console.log("increment score")
+          }
+          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q3Answer)){
+            console.log("increment score")
+          }
+          if(question.answers[i].isCorrect && (("btn" + question.id + question.answers[i].id) === q4Answer)){
+            console.log("increment score")
+          }
+        }
+      });
+    }
+    // for each question in the array
+    // for each answer in its array
+    // if answer.isCorrect && backgroundColor blue, props.setScore(prevScore => prevScore + 1)
+    // THEN
+    // if answer.isCorrect, set backgroundColor green
+    // else if !answer.isCorrect has backgroundColor blue, set backgroundColor red
   }
 
   function endGame() {

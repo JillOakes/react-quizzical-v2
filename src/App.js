@@ -77,9 +77,9 @@ function App() {
       gameArray.push(foo);
     }
     //for each question, shuffle the answer array
-    gameArray.forEach((element) => {
-      shuffle(element.answers);
-    });
+    // gameArray.forEach((element) => {
+    //   shuffle(element.answers);
+    // });
     //console.log("game array:", gameArray);
   }
 
