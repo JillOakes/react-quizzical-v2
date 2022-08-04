@@ -9,7 +9,8 @@ function App() {
 
   React.useEffect(() => {
     fetch(
-      "https://opentdb.com/api.php?amount=5&category=14&difficulty=easy&type=multiple"
+      // "https://opentdb.com/api.php?amount=5&category=14&difficulty=easy&type=multiple"
+      "https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple"
     )
       .then((res) => res.json())
       .then((data) => {
@@ -18,19 +19,18 @@ function App() {
       });
   }, [showIntro]);
 
-  const apiQs = rawQuestions;
-
+  
   // For handling the default encoding of character text from the API
   function htmlDecode(input) {
     var doc = new DOMParser().parseFromString(input, "text/html");
     return doc.documentElement.textContent;
   }
-
+  
   //For shuffling the answers around to be random
   function shuffle(array) {
     let currentIndex = array.length,
-      randomIndex;
-
+    randomIndex;
+    
     // While there remain elements to shuffle
     while (currentIndex !== 0) {
       // Pick a remaining element
@@ -47,6 +47,7 @@ function App() {
     return array;
   }
 
+  const apiQs = rawQuestions;
   const gameArray = [];
   if (apiQs.length > 0) {
     for (let i = 0; i < apiQs.length; i++) {
@@ -93,8 +94,6 @@ function App() {
           <Intro startGame={startGame} />
         ) : (
           <Game
-            // setGameInProgress={setGameInProgress}
-            // gameInProgress={gameInProgress}
             gameArray={gameArray}
             setShowIntro={setShowIntro}
           />

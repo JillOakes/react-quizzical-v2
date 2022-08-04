@@ -88,8 +88,8 @@ body {
   display: flex;
   flex-direction: column;
   width: 800px;
-  margin-top: 50px;
-  margin-left: 15%;
+  margin-top: 60px;
+  margin-left: 10%;
   z-index: 1;
 }
 
@@ -105,11 +105,12 @@ body {
 }
 
 .answers-container {
-  display: flex;
+  /* display: flex; */
   /* display: grid; */
-  /* ----------------------------   this is what makes two rows of 2 or 1 row of 4 */
+  /* -----------------------------   this is what makes two rows of 2 answers or 1 row of 4 answers   */
+  /* -------------   but the database allows for really long answers, so I left these commented out   */
   /* grid-template-columns: auto auto; */
-  grid-template-columns: auto auto auto auto;
+  /* grid-template-columns: auto auto auto auto; */
   gap: 8px;
   /* width: 485px; */
   margin-top: 14px;
@@ -132,6 +133,8 @@ body {
   border-radius: 8px;
   white-space: nowrap;
   cursor: pointer;
+  margin-right: 9px;
+  margin-top: 7px;
 }
 
 .cardLine {
@@ -215,14 +218,4 @@ body {
 
 .play-again:active {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
-}
-
-.results-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 800px;
-  margin-top: 50px;
-  /* margin-left: 15%; */
-  background-color: yellowgreen;
 }

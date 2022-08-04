@@ -9,7 +9,7 @@ const Game = (props) => {
   const [selectedQ3BtnId, setSelectedQ3BtnId] = React.useState();
   const [selectedQ4BtnId, setSelectedQ4BtnId] = React.useState();
 
-  //changes selected button's color light blue before submitting
+  //-----------------------  changes selected button's color to  blue before submitting
   function handleClick(e) {
     let currentQId = e.target.getAttribute("data-qid");
     // get all siblings of currently clicked button
@@ -43,57 +43,55 @@ const Game = (props) => {
 
   function calculateScore() {
     setGameInProgress(false);
-    // console.log("game NOT in progress. calculating your score");
 
     // for each question in the array
     // for each answer in its array
-    // if answer.isCorrect && backgroundColor blue, props.setScore(prevScore => prevScore + 1)
-    // THEN
-    // if answer.isCorrect, set backgroundColor to green #94D7A2
-    // else if !answer.isCorrect has backgroundColor blue, set backgroundColor to red #F8BCBC
+    // if answer.isCorrect && that button is saved to state, increment score
 
     if (props.gameArray.length > 0) {
-      let count = 0;
       props.gameArray.forEach((question) => {
         for (let i = 0; i < question.answers.length; i++) {
           if (
             question.answers[i].isCorrect &&
             "btn" + question.id + question.answers[i].id === selectedQ0BtnId
           ) {
-            count++;
+            setScore((prevScore) => prevScore + 1);
           }
           if (
             question.answers[i].isCorrect &&
             "btn" + question.id + question.answers[i].id === selectedQ1BtnId
           ) {
-            count++;
+            setScore((prevScore) => prevScore + 1);
           }
           if (
             question.answers[i].isCorrect &&
             "btn" + question.id + question.answers[i].id === selectedQ2BtnId
           ) {
-            count++;
+            setScore((prevScore) => prevScore + 1);
           }
           if (
             question.answers[i].isCorrect &&
             "btn" + question.id + question.answers[i].id === selectedQ3BtnId
           ) {
-            count++;
+            setScore((prevScore) => prevScore + 1);
           }
           if (
             question.answers[i].isCorrect &&
             "btn" + question.id + question.answers[i].id === selectedQ4BtnId
           ) {
-            count++;
+            setScore((prevScore) => prevScore + 1);
           }
         }
       });
-      setScore((prevScore) => prevScore + count);
     }
+
+    // To change the buttons' colors:
+    // if answer.isCorrect, set backgroundColor to green #94D7A2
+    // else if !answer.isCorrect && that button is saved to state, set backgroundColor to red #F8BCBC
+
     props.gameArray.forEach((question) => {
       for (let i = 0; i < question.answers.length; i++) {
         if (question.answers[i].isCorrect) {
-          // console.log("this gets change to green", question.id + question.answers[i].id)
           document.getElementById(
             "btn" + question.id + question.answers[i].id
           ).style.backgroundColor = "#94D7A2";
