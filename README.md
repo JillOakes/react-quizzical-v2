@@ -12,6 +12,10 @@ Inside the Game component, the "gameInProgress" state is what toggles between th
 Each selected answer button and the score are held in separate states.
 Button colors are transparent or blue while the game is in progress.  When gameInProgess is toggled, the score is tallied and button colors change to green/red to indicate correct/incorrect answers.
 
+![quizzical01](https://user-images.githubusercontent.com/108361750/182857790-aebac114-fbb1-48c1-ad23-109bd14d23bf.PNG)
+![quizzical02](https://user-images.githubusercontent.com/108361750/182857811-e8811b6c-f2c1-4ad3-8736-d83e4753178e.PNG)
+![quizzical03](https://user-images.githubusercontent.com/108361750/182857823-29fe8624-35bf-408a-b74b-4328beb34c32.PNG)
+![quizzical04](https://user-images.githubusercontent.com/108361750/182857835-3436f685-2c98-4ae1-be18-70dba42a3d5b.PNG)
 
 # Getting Started with Create React App
 
