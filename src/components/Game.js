@@ -9,7 +9,7 @@ const Game = (props) => {
   const [selectedQ3BtnId, setSelectedQ3BtnId] = React.useState();
   const [selectedQ4BtnId, setSelectedQ4BtnId] = React.useState();
 
-  //-----------------------  changes selected button's color to  blue before submitting
+  //--------------------  changes selected button's color to blue before submitting
   function handleClick(e) {
     let currentQId = e.target.getAttribute("data-qid");
     // get all siblings of currently clicked button
@@ -17,13 +17,15 @@ const Game = (props) => {
       `button[data-qid="${currentQId}"]`
     );
 
+    //change all siblings to transparent color
     buttonList.forEach((element) => {
       element.style.backgroundColor = "#FFFFFF";
     });
 
+    //change the selected button to blue
     let selectedBtn = document.getElementById(e.target.id);
     selectedBtn.style.backgroundColor = "#D6DBF5";
-    //console.log(selectedBtn.id);
+    
     if (selectedBtn.id[3] === "0") {
       setSelectedQ0BtnId(selectedBtn.id);
     }

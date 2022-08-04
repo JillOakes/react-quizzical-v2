@@ -1,3 +1,18 @@
+Quizzical is the final solo project for the Scrimba "Learn React for free" course.
+I used the Open Trivia Database API to make this project:  https://opentdb.com/
+
+The parent component is App.  The two children components are Intro and Game.
+
+Inside App, the "showIntro" state is what toggles between the view of Intro and Game.
+The Open Trivia DB API is called at App level, and the response is saved in the state "rawQuestions".
+From there the data is decoded from unicode, santized for ease of use (each question's answers are put into a single array and given a true/false value), and the five answer arrays are shuffled.
+The new array, gameArray, is handed as a prop to the Game component.
+
+Inside the Game component, the "gameInProgress" state is what toggles between the view of the "Check answers" button and the view of the score and "Play again" button.
+Each selected answer button and the score are held in separate states.
+Button colors are transparent or blue while the game is in progress.  When gameInProgess is toggled, the score is tallied and button colors change to green/red to indicate correct/incorrect answers.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
